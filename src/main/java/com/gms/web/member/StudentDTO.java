@@ -7,14 +7,14 @@ import lombok.Data;
 
 @Component @Data @Lazy
 public class StudentDTO {
-	private String num,id,name,ssn,regdate,
+	private String id,name,ssn,regdate,
 	phone,email,subjects;
-
-	public String getNum() {
+	private int num;
+	public int getNum() {
 		return num;
 	}
 
-	public void setNum(String num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
 

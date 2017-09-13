@@ -7,7 +7,7 @@ import lombok.Data;
 @Data @Lazy @Component
 public class MemberDTO {
 	
-	private String id, pass, ssn,name,regedate,email,major,subject,phone,profile,birthday,gender;
+	private String id, password, ssn,name,regdate,email,major,subject,phone,profile,birthday,gender;
 	
 	public void setGender(String gender) {
 		this.gender = gender;
@@ -15,7 +15,7 @@ public class MemberDTO {
 	
 	@Override
 	public String toString() {
-		return "MemberBean [id=" + id + ", pass=" + pass + ", ssn=" + ssn + ", name=" + name + ", regedate=" + regedate
+		return "MemberBean [id=" + id + ", password=" + password + ", ssn=" + ssn + ", name=" + name + ", regedate=" + regdate
 				+ ", email=" + email + ", major=" + major + ", subject=" + subject + ", phone=" + phone + ", profile="
 				+ profile + ", birthday=" + birthday + ", gender=" + gender + "]";
 	}

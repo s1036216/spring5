@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../member/member_head.jsp"/>
+
+   
+      <div style="text-align:center";>
+      <h2 style="font-size: 20px; color:red; ">${msg}</h2>
+      </div>
 <div id="container" class="margin-center" style="width: 500px;">
 <img src="<%=request.getContextPath()%>/WEB-INF/resources/img/joinimg.jpg" alt="" />
 <form id="join_form" action="">
@@ -13,7 +17,7 @@
 <span id="join_name">NAME: </span>
 <input name="name" type="text" placeholder="이름"/><br />
 <span id="join_birth">BIRTHDAY: </span>
-<input name="birth"  type="date" placeholder="생년월일" /><br />
+<input name="ssn"  type="date" placeholder="생년월일" /><br />
 <input type="radio" name="gender" value="male" checked="checked" />남성
 <input type="radio" name="gender" value="female" />여성<br />
 <span id="join_email">EMAIL: </span>
@@ -40,4 +44,3 @@
 </fieldset>
 </form>
 </div>
-<jsp:include page="../common/footer.jsp"/>

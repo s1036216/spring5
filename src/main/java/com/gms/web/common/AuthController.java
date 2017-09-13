@@ -3,6 +3,8 @@ package com.gms.web.common;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gms.web.command.CommandDTO;
 import com.gms.web.member.MemberDTO;
@@ -21,6 +25,7 @@ import sun.print.resources.serviceui;
 
 
 @Controller 
+@SessionAttributes("user")
 @RequestMapping("/auth") /*witch case 구문이 내부적으로 가지고 있다 */
 public class AuthController {
 	/*log를 찍는것 이다 */
@@ -35,14 +40,21 @@ public class AuthController {
 		/*model.addAttribute(model);*/
 		return "public:common/login.tiles";
 	}
-	@RequestMapping("/lgoin")
-	public String login(@RequestParam("id") String id, @RequestParam("password") String password) {
+	@RequestMapping(value="/lgoin" , method=RequestMethod.POST)
+	public String login(Model model,@RequestParam("id") String id, @RequestParam("password") String password ) {
 		logger.info("AuthController!:::::login-- {}","진입" );
 		logger.info("@@@@ id :"+id);
 		logger.info("@@@@ password :"+password);
 		cmd.setSearch(id);
 		cmd.setColumn(password);
 		Map<String,Object> map=service.login(cmd);
+	
+		
+		if(map.get("msg").equals("success")) {
+			model.addAttribute("user", map.get("user"));
+		}
+		model.addAttribute("msg",map.get("msg"));
+		
 		return String.valueOf(map.get("page"));
 	}
 	@RequestMapping("/go_main")

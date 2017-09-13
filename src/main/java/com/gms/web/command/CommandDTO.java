@@ -6,13 +6,17 @@ import org.springframework.stereotype.Component;
 
 import com.gms.web.constant.Extension;
 import com.gms.web.constant.Path;
+import com.gms.web.member.MemberDTO;
 
 import lombok.Data;
 
 @Data @Component @Lazy
-public class CommandDTO implements Commandable {
-	@Autowired CommandDTO commandDTO;
+public class CommandDTO {
+	
 	protected String dir,action, page,pageNumber,search, view,column,startRow,endRow;
+	
+	protected MemberDTO member; 
+	
 	public String getStartRow() {
 		return startRow;
 	}
@@ -91,7 +95,7 @@ public class CommandDTO implements Commandable {
 		return view;
 	}
 
-	@Override
+	
 	public void process() {
 		/*VIEW를 정해준다*/
 		this.view=(dir.equals("home"))?

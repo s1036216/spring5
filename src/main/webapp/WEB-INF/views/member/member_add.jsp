@@ -7,7 +7,7 @@
 <legend>JOIN INFORMATION</legend>
 <h3>회원가입 </h3>
 <span id="join_id">ID: </span>
-<input id="member_id" name="member_id" type="text" placeholder="ID" /><br />
+<input id="id" name="id111" type="text" placeholder="ID" /><br />
 <span id="join_pass" >PASSWORD: </span>
 <input id="password" name="password" value="1" type="password" placeholder="비밀번호"/><br />
 <span id="join_name">NAME: </span>
@@ -15,7 +15,7 @@
 <span id="join_name">PHONE: </span>
 <input id="phone" name="phone"  type="text" placeholder="전화번호" value="010-1234-5896"/><br />
 <span id="join_birth">BIRTHDAY: </span>
-<input id="birth" name="birth"  type="date" placeholder="생년월일" /><br />
+<input id="ssn" name="ssn"  type="date" placeholder="생년월일" /><br />
 <input type="radio" name="gender" value="male" checked="checked"/>남성
 <input type="radio" name="gender" value="female" />여성<br />
 <span id="join_email">EMAIL: </span>
@@ -44,4 +44,6 @@
 </fieldset>
 </form>
 </div>
-
+<script>
+app.controller.init();
+</script>

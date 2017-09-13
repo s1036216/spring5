@@ -43,7 +43,7 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li style="font-weight:bold;color: white ">${sessionScope.user.name}</li>
+      <li style="font-weight:bold;color: white ">${user.name}</li>
       <li><a id="logout" ><span class="glyphicon glyphicon-user"></span>Logout</a></li>
       <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>

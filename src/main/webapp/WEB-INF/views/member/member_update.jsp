@@ -7,49 +7,49 @@
 			<div class="row main">
 				<div class="panel-heading">
 	               <div class="panel-title text-center">
-	               		<h1 class="title" >${requestScope.student.name} Profile</h1>
+	               		<h1 class="title" >${list.name} Profile</h1>
 	               		<hr />
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
+					<form class="form-horizontal" id="updateForm" name="updateForm">
 						
 						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">${requestScope.student.id}</label>
+							<label id ="id" for="name" class="cols-sm-2 control-label">ID</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" name="name" id="name"  class="form-control"  placeholder=""/>
+									<input type="text" name="id" id="id"  class="form-control"  value="${list.id}"  readonly/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Email</label>
+							<label for="email" class="cols-sm-2 control-label">email</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text"  name="email" id="email"  class="form-control" placeholder=""/>
+									<input type="text"  name="email" id="email"  class="form-control" value="${list.email}"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">PHONE</label>
+							<label for="username" class="cols-sm-2 control-label">phone</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" name="phone" id="phone"  class="form-control"  placeholder=""/>
+									<input type="text" name="phone" id="phone"  class="form-control"  value="${list.phone}"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password</label>
+							<label for="password" class="cols-sm-2 control-label">NAME</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password" data-toggle="popover" placeholder=""/>
+									<input type="password" class="form-control" name="password" id="password" data-toggle="popover" value="${list.name}"/>
 								</div>
 								<span id="passwordInfo" class="hide">
 								    <ul>
@@ -75,12 +75,12 @@
 						</div>
 
 						<div class="form-group ">
-							<button id="confirmBtn" type="button" class="btn btn-primary btn-lg btn-block login-button">UPDATE</button>
+							<button id="confirmBtn" type="submit"  class="btn btn-primary btn-lg btn-block login-button">UPDATE</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<script>
-		memberUpdate.init();
+		app.controller.init();
 		</script>

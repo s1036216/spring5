@@ -31,11 +31,9 @@ import org.springframework.stereotype.Component;
 
 import com.gms.web.command.CommandDTO;
 @Component
-public class PageHandler extends PageProxy {
+public class PageHandler {
 
-	public PageHandler(HttpServletRequest request) {
-		super(request);
-	}
+	
 
 	// int를 객체로 바꿔서 사용
 	public static CommandDTO attr(PageProxy pxy) {

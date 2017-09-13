@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,47 +20,44 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired CommandDTO cmd;
    
   
-   
+	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
    
    @Override
    public Map<String,Object> login(CommandDTO cmd) {
       System.out.println("MemberServiceImpl login entered!!!!");
       Map<String,Object> map=new HashMap<>();
       
-      String page;
+      String page="";
+      String msg="";
+      
       member=mapper.login(cmd);
       if (member!=null) {
     	  System.out.println("111111"+member);
-          if (cmd.getColumn().equals(member.getPass())) {
-                   page = "auth:common/main.tiles";
+          if (cmd.getColumn().equals(member.getPassword())) {
+              msg="success";     
+        	  page = "auth:common/main.tiles";
               }
           else {
+        	  msg="비밀번호가틀립니다";
               page = "public:common/login.tiles";
            
           }
        }
        else {
-           page = "public:common/login.tiles";
+    	   msg="id가존재하지않습니다";
+    	   page = "public:common/join.tiles";
         
        }
       map.put("page", page);
+      map.put("msg", msg);
+      map.put("user", member);
       return map;
    }
    
    @Override
-   public String addMember(Map<String, Object> map) {
-      System.out.println("Member serviceImpl entered");
-      String result="";
-      MemberDTO m = (MemberDTO) map.get("member");
-      System.out.println("넘어온 학생 회원정보 ==="+ m.toString());
-   /*   @SuppressWarnings("unchecked")
-      List<MajorDTO> list= (List<MajorDTO>) map.get("major");
-      System.out.println("넘어온 과목들 !!!"+list.toString());
-      result= dao.insertMember(map);
-      Separator.cmd.setDir("home");
-      Separator.cmd.setPage("main");
-      Separator.cmd.process();*/
-      return result;
+   public String addMember(MemberDTO mem) {
+      
+      return String.valueOf(mapper.insertMember(mem));
    }
 
    @Override
@@ -71,54 +70,42 @@ public class MemberServiceImpl implements MemberService {
    @SuppressWarnings("unchecked")
    @Override
    public List<?> list(CommandDTO cmd) {
-      /*list=(List<StudentDTO>) dao.selectAll(cmd);*/
+     
     
-      return null; // ArrayList가 된다
+      return mapper.selectAll(cmd); // ArrayList가 된다
    }
 
    @Override
    public StudentDTO findById(CommandDTO cmd) {
-      StudentDTO stu = new StudentDTO();
-      /*stu = dao.selectById(cmd);*/
-      return stu;
+      
+      return mapper.selectById(cmd);
    }
 
    @Override
    public List<?> findByName(CommandDTO cmd) {
       System.out.println("findByName:: "+cmd.getSearch()+"::");
    /*   return dao.selectByName(cmd);*/
-      return null;
+      return mapper.search(cmd);
    }
 
    @Override
    public String modifiyProfile(MemberDTO bean) {
-      String result = "";
-      // findById(bean.getPw()).setPw(bean.getPw());
-      CommandDTO cmd=new CommandDTO();
-      cmd.setSearch(bean.getId());
-      /*MemberDTO mem =dao.login(cmd);
-      if (!bean.getName().equals("")) {
-         mem.setName(bean.getName());
-      }
-      if (!bean.getPw().equals("")) {
-         mem.setPw(bean.getPw());
-      }
-      if (!bean.getSsn().equals("")) {
-         mem.setSsn(bean.getSsn());
-      }
-      System.out.println("serviceImpl*****" + mem);
-*/      return result;
+	   logger.info("서비스에 들어온 이메일주소 {}",bean.getEmail());
+	   logger.info("서비스에 들어온 폰 {}",bean.getPhone());
+	   logger.info("서비스에 들어온 아이디{}",bean.getId());
+	   
+    return String.valueOf(mapper.updateProfile(bean));
    }
 
 
    @Override
    public String removeUser(CommandDTO cmd) {
-      String removeResult = "";
+      
 
 
       // list.get(i)=null;
       // count--;
-      return removeResult;
+      return String.valueOf(mapper.deleteUser(cmd));
    }
 
 

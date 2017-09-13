@@ -5,8 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 @Component
-public class PageProxy extends Proxy {
+
+public class PageProxy  {
     protected int 
 	pageSize,blockSize,theNumberOfRows,pageNumber;
 	public int getPageSize() {
@@ -41,18 +43,16 @@ public class PageProxy extends Proxy {
 		this.pageNumber = pageNumber;
 	}
 
-	public PageProxy(HttpServletRequest request) {
-		super(request);
-	}
 	
-	public void execute(int[] arr, List<?>list) {
-    		super.getRequest().setAttribute("pageNumber",arr[0]); //내가 원하는 페이지를 전송 -> default page number
-			super.getRequest().setAttribute("theNumberOfPages", arr[1]);
-			super.getRequest().setAttribute("startPage", arr[2]);
-			super.getRequest().setAttribute("endPage",arr[3]);
-			super.getRequest().setAttribute("prevBlock", arr[4]);
-			super.getRequest().setAttribute("nextBlock", arr[5]);
-			super.getRequest().setAttribute("list", list); // list 가져감
+	
+	public void execute(Model model,int[] arr, List<?>list) {
+		model.addAttribute("pageNumber",arr[0]); //내가 원하는 페이지를 전송 -> default page number
+		model.addAttribute("theNumberOfPages", arr[1]);
+		model.addAttribute("startPage", arr[2]);
+		model.addAttribute("endPage",arr[3]);
+		model.addAttribute("prevBlock", arr[4]);
+		model.addAttribute("nextBlock", arr[5]);
+		model.addAttribute("list", list); // list 가져감
 			
 			System.out.println("pageNumber"+arr[0]);
 			System.out.println("theNumberOfPages"+arr[1]);

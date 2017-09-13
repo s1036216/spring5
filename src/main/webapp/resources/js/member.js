@@ -90,7 +90,8 @@ app.main = (function() {
          app.controller.moveTo('member', 'member_add');
       });
       $('.list-group li').eq(1).on('click', function() {
-         app.controller.moveTo('member', 'member_list');
+    	 alert('tttt');
+         app.member.list(1);
          /* app.controller.list('member','member_list','1'); */
       });
       $('.list-group li').eq(2).on('click', function() {
@@ -196,7 +197,7 @@ app.navbar = (function() {
       });
       $('.dropdown-menu a').eq(1).on('click', function() {
          alert('1');
-         app.controller.moveTo('member','member_list');
+         app.member.list(1);
          /*app.controller.list('member', 'member_list', '1');*/
       });
       $('.dropdown-menu a').eq(2).on('click', function() {
@@ -243,7 +244,7 @@ app.navbar = (function() {
       });
       $('#homeBtn').on('click', function() {
          alert('home button');
-         app.controller.moveTo('auth', 'go_main');
+         app.controller.moveTo('common', 'main');
       });
    };
    var setContentView = function() {
@@ -276,14 +277,19 @@ app.member = (function() {
          /* update하면 그 정보를 저장해라 */
          /* id,phone,email,title */
          alert('넘어가는 ID' + $('#id').text());
-         sessionStorage.setItem('id', $('#id').text());
+         /*sessionStorage.setItem('id', $('#id').text());
          sessionStorage.setItem('name', $('#name').text());
          sessionStorage.setItem('phone', $('#phone').text());
          sessionStorage.setItem('email', $('#email').text());
-         sessionStorage.setItem('title', $('#title').text());
+         sessionStorage.setItem('title', $('#title').text());*/
          controller.moveTo('member', 'member_update');
       });
 
+   };
+   var list = function(pno) {
+	   alert("누른번호"+pno);
+      		 location.href=app.path.ctx()+"/member/list/"+pno;
+          
    };
    var setContentView = function() {
       /* 화면 */
@@ -291,6 +297,7 @@ app.member = (function() {
    };
    return {
       init : init,
+      list : list
    };
 })();
 
@@ -298,11 +305,12 @@ app.member = (function() {
 app.controller = (function() {
    /* 기능들의 집합 이다 / 기능은 public 이다 */
    var init = function() {
-
+	   updateStudent();
+	   add();
    };
 
    var moveTo = function(x, y) {
-      location.href = app.path.ctx() + "/" + x + "/" + y;
+      location.href = app.path.ctx()+"/common/path/"+ x + "/" + y;
    };
    
    var deleteTarget = function(target,x,y) {
@@ -310,38 +318,38 @@ app.controller = (function() {
 	      location.href = app.path.ctx()+"/"+x+"/"+y;
 	   };
 
-   var list = function(dir, page, pageNumber) {
-      alert('pageNumber' + pageNumber);
-      location.href = app.path.ctx() + "/" + dir + ".do?action=list&page="
-            + page + "&pageNumber=" + pageNumber;
-   };
-   var updateStudent = function(id, email) {
-      alert('수정할  id: ' + id);
-      location.href = app.path.ctx()
-            + "/member.do?action=update&page=member_update&id=" + id
-            + "&email=" + email;
-   };
+   var updateStudent = function() {
+      $('#confirmBtn').on('click',function(){
+    	  alert('업데이트');  
+      $('#updateForm').attr('action', app.path.ctx() + "/member/update");
+      $('#updateForm').attr('method', 'post');
+     return true;
+      });
+  };
    var deleteStudent = function(id) {
       alert('삭제할 아이디: ' + id);
-      location.href = app.path.ctx()
-            + "/member.do?action=delete&page=member_list&id=" + id;
+      location.href = app.path.ctx()+"/member/delete/"+id;
    };
    var detailStudent = function(x) {
       alert('디테일 아이디: ' + x);
-      location.href = app.path.ctx()
-            + "/member.do?action=detail&page=member_detail&id=" + x;
+      location.href = app.path.ctx()+"/member/detail/"+x;
    };
    var searchName = function() {
-      var $name = $('#searchName').val;
-      if ($name != "") {
-         alert('찾는 이름 : ' + $name);
-         location.href = app.path.ctx()
-               + "/member.do?action=search&page=member_list&search="
-               + $name;
-      } else {
-         alert('찾을실 이름을 검색하여 주세요 !!!!');
-      }
+      alert('검색');
+	   var search= $('#searchName').val();
+      
+         location.href = app.path.ctx()+ "/member/search/"+search;
+     
    }
+   var add =  function() {
+	      $('#join_yes_button').on('click',function(){
+	    	  alert('등록완료');  
+	      $('#join_form').attr('action', app.path.ctx() + "/member/add");
+	        
+	      $('#join_form').attr('method', 'post');
+	     return true;
+	      });
+	  };
 
    var logout = function(dir, page) {
       location.href = app.ctx() + "/" + dir + ".do?action=logout&page="
@@ -351,12 +359,12 @@ app.controller = (function() {
    return {
       init : init,
       moveTo : moveTo,
-      list : list,
       deleteTarget : deleteTarget,
       updateStudent : updateStudent,
       deleteStudent : deleteStudent,
       detailStudent : detailStudent,
       searchName : searchName,
+      add : add,
       logout : logout
    };
 })();
