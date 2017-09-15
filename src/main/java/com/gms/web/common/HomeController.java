@@ -19,6 +19,6 @@ public class HomeController {
       logger.info("Welcome home! The client locale is {}.", "진입" );
       model.addAttribute("serverTime",new SimpleDateFormat("yy년 MM월 dd일 E요일").format(new Date()) );
       model.addAttribute("path", PathFactory.create());
-      return "public:common/home.tiles";
+      return "index";
    }
 }
