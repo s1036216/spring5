@@ -46,8 +46,11 @@ public class MemberController {
 	Map<String,Object> paramMap= new HashMap<>();
 		 paramMap.put("member", member);
 		 List<MajorDTO> parmList=new ArrayList<>();
+		/* int random = (int) (Math.random()*9999)+1000;*/
 		 for(String m:list) {
 			 mj = new MajorDTO();
+			   /*mj.setMajorId(String.valueOf(random));*/
+			 
 			 mj.setId(member.getId());
 			 mj.setSubjId(m);
 			  mj.setTitle(m);
