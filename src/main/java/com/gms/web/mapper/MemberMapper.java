@@ -11,7 +11,7 @@ import com.gms.web.member.StudentDTO;
 @Repository 
 
 public interface MemberMapper {
-	public int insertMember(MemberDTO mem);
+	public int insertMember(MemberDTO member);
 	public List<?> selectAll(CommandDTO cmd);
 	public String count();
 	public StudentDTO selectById(CommandDTO cmd);

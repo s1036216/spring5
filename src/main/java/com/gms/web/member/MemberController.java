@@ -1,6 +1,6 @@
 package com.gms.web.member;
 
-import java.util.List;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,13 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.gms.web.command.CommandDTO;
 import com.gms.web.complex.PathFactory;
+import com.gms.web.grade.MajorDTO;
 import com.gms.web.proxy.BlockHandler;
 import com.gms.web.proxy.PageHandler;
 import com.gms.web.proxy.PageProxy;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParameterList;
 
 import sun.print.resources.serviceui;
 
@@ -29,12 +32,31 @@ public class MemberController {
 	@Autowired MemberService service; //싱글톤
 	@Autowired CommandDTO cmd;
 	@Autowired PageProxy pxy;
-	@RequestMapping("/add")
-	public String memberAdd(@ModelAttribute MemberDTO mem,Model model) {
-		logger.info("MemberController!::::: memberadd {}","진입" );
-		System.out.println("mem"+mem.toString());
-		service.addMember(mem);
-		
+	@Autowired MemberDTO member;
+	@Autowired MajorDTO major; 
+	@RequestMapping(value="/add",method=RequestMethod.POST)
+	public String memberAdd(@ModelAttribute MemberDTO member,
+			@RequestParam("subject") List<String> list) {
+		System.out.println("진입123123123");
+		logger.info("등록 id {}",member.getId());
+		logger.info("등록 이름 {}",member.getName());
+		logger.info("등록 비번 {}",member.getPassword());
+		logger.info("등록 과목 {}",list );  
+		MajorDTO mj =null;
+	Map<String,Object> paramMap= new HashMap<>();
+		 paramMap.put("member", member);
+		 List<MajorDTO> parmList=new ArrayList<>();
+		 for(String m:list) {
+			 mj = new MajorDTO();
+			 mj.setId(member.getId());
+			 mj.setSubjId(m);
+			  mj.setTitle(m);
+				parmList.add(mj);		
+		 }
+		 	
+		paramMap.put("list",parmList);
+		service.addMember(paramMap);
+	
 		return "redirect:/member/list/1";
 	}
 	

@@ -267,21 +267,17 @@ app.navbar = (function() {
  ******************************************************************************/
 app.member = (function() {
    var init = function() {
-      onCreate();
+	   add();
+	   onCreate();
+      
    };
    var onCreate = function() {
       /* 기능 */
       setContentView();
       $('#memberUpdateBtn').on('click', function() {
          alert('정보수정');
-         /* update하면 그 정보를 저장해라 */
-         /* id,phone,email,title */
          alert('넘어가는 ID' + $('#id').text());
-         /*sessionStorage.setItem('id', $('#id').text());
-         sessionStorage.setItem('name', $('#name').text());
-         sessionStorage.setItem('phone', $('#phone').text());
-         sessionStorage.setItem('email', $('#email').text());
-         sessionStorage.setItem('title', $('#title').text());*/
+         
          controller.moveTo('member', 'member_update');
       });
 
@@ -295,7 +291,18 @@ app.member = (function() {
       /* 화면 */
       alert('member detail');
    };
+   var add =  function() {
+	   $('#join_yes_button').on('click',function(){
+		  alert('등록완료');  
+	      $('#join_form').attr('action', app.path.ctx() + "/member/add");
+	      $('#join_form').attr('method', 'post');
+	     return true;
+	      });
+	  };
+
+   
    return {
+	   add : add,
       init : init,
       list : list
    };
@@ -341,16 +348,7 @@ app.controller = (function() {
          location.href = app.path.ctx()+ "/member/search/"+search;
      
    }
-   var add =  function() {
-	      $('#join_yes_button').on('click',function(){
-	    	  alert('등록완료');  
-	      $('#join_form').attr('action', app.path.ctx() + "/member/add");
-	        
-	      $('#join_form').attr('method', 'post');
-	     return true;
-	      });
-	  };
-
+  
    var logout = function(dir, page) {
       location.href = app.ctx() + "/" + dir + ".do?action=logout&page="
             + page;
@@ -364,7 +362,6 @@ app.controller = (function() {
       deleteStudent : deleteStudent,
       detailStudent : detailStudent,
       searchName : searchName,
-      add : add,
       logout : logout
    };
 })();

@@ -3,7 +3,7 @@
 <body>
 <div id="wrapper">
 <div id="container">
-	<img src="${img}/login.png" alt="" /><br />
+	<img src="${path.img}/login111.png" alt="" /><br />
 	<mark style="color: red;">*ID는 숫자포함 8자 이내</mark><br />
 <form id="login_box" name="login_box" >
 

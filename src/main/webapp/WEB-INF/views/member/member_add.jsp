@@ -2,12 +2,12 @@
 
 <div id="container" class="margin-center" style="width: 500px;">
 <img src="<%=request.getContextPath()%>/WEB-INF/resources/img/joinimg.jpg" alt="" />
-<form id="join_form" onsubmit="memberAdd()">
+<form id="join_form" >
 <fieldset>
 <legend>JOIN INFORMATION</legend>
 <h3>회원가입 </h3>
 <span id="join_id">ID: </span>
-<input id="id" name="id111" type="text" placeholder="ID" /><br />
+<input id="id" name="id" type="text" placeholder="ID" /><br />
 <span id="join_pass" >PASSWORD: </span>
 <input id="password" name="password" value="1" type="password" placeholder="비밀번호"/><br />
 <span id="join_name">NAME: </span>
@@ -22,7 +22,7 @@
 <input type="email" id="email" name="email" value="leegildong@test.com"/>
 <hr />
 <h3>전 공</h3>
-<select name="major" style="height: 30px; display: inline-block;">
+<select id ="major" name="major" style="height: 30px; display: inline-block;">
 	<option value="computer" selected="selected">컴퓨터 공학</option>
 	<option value="economics" >경제학</option>
 	<option value="tourism">관광학</option>
@@ -45,5 +45,5 @@
 </form>
 </div>
 <script>
-app.controller.init();
+app.member.init();
 </script>
